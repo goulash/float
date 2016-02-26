@@ -5,6 +5,7 @@
 package float
 
 import (
+	"fmt"
 	"math"
 	"testing"
 
@@ -12,7 +13,26 @@ import (
 )
 
 func TestNext32(z *testing.T) {
-	list := float32{+0.0}
+	head := []float32{
+		0.00000000e+00,
+		1.40129846e-45,
+		2.80259693e-45,
+		4.20389539e-45,
+		5.60519386e-45,
+		7.00649232e-45,
+		8.40779079e-45,
+		9.80908925e-45,
+		1.12103877e-44,
+		1.26116862e-44,
+	}
+
+	for i, next := range head[1:] {
+		f := head[i]
+		fmt.Printf("%.8e\n", next)
+		if Next32(f) != next {
+			z.Errorf("Next32(%.8e) = %.8e, want %.8e", f, Next32(f), next)
+		}
+	}
 }
 
 func TestEquals(z *testing.T) {
